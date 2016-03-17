@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="ANDSENS"
+                android:text="YOURID"
                 android:id="@+id/textView14"/>
     </LinearLayout>
     <LinearLayout
@@ -36,23 +36,11 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="DsId: "
                 android:id="@+id/textView" android:singleLine="false"/>
-        <EditText
+        <TextView
                 android:layout_width="115dp"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:ems="10"
-                android:maxLength="7"
-                android:id="@+id/dsid" android:layout_weight="0.17" android:text="ANDSENS"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PIN:"
-                android:maxLength="4"
-                android:id="@+id/textView2"/>
-        <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/pin" android:inputType="text" android:text="1111"/>
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/dsid" android:layout_weight="0.17" android:text="YOURID"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -24,7 +24,6 @@ public class RemoteLogger extends Service implements ZnConnectorInf, Runnable{
     public final long MEGS=1048576L;
     String pin="1111";
     private ScheduledFuture future;
-    public static final String TYPE = "10000r0";
 
 
     @Override
@@ -64,9 +63,6 @@ public class RemoteLogger extends Service implements ZnConnectorInf, Runnable{
     }
 
     main m;
-    public RemoteLogger() {
-        this.conn=new ZnConnector(this,TYPE,(short)0);
-    }
 
     public void stop(){
         if (future != null) {
@@ -75,11 +71,14 @@ public class RemoteLogger extends Service implements ZnConnectorInf, Runnable{
         conn.stop();
     }
     public void start(){
+        if(conn==null){
+            this.conn=new ZnConnector(this,m.TYPE,(short)0);
+        }
         conn.start();
-        future = conn.getScheduler().scheduleAtFixedRate(this, 0, 10, TimeUnit.SECONDS);
+        future = conn.getScheduler().scheduleAtFixedRate(this, 0, m.getInterval(), TimeUnit.SECONDS);
     }
 
-    final ZnConnector conn;
+    ZnConnector conn;
     private AtomicInteger inCnt = new AtomicInteger(0);
     private AtomicInteger outCnt = new AtomicInteger(0);
     public ZnConnector getConn(){
@@ -151,7 +150,7 @@ public class RemoteLogger extends Service implements ZnConnectorInf, Runnable{
         }else if(status==ZnConnector.STATE_GET_DEV_ID){
             setStatus("Retrieving DeviceId...");
         }else if(status==ZnConnector.STATE_GET_SERVER){
-            setStatus("Got deviceId, retrieving server:" + TYPE + " DsId:" + m.getDsid());
+            setStatus("Got deviceId, retrieving server DsId:" + m.getDsid());
             if (future != null) {
                 future.cancel(false);
             }

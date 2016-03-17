@@ -133,14 +133,14 @@ public class ZnConnector implements MqttCallback, Runnable{
             connOpt.setCleanSession(true);
             connOpt.setKeepAliveInterval(30);
             connOpt.setUserName(fullDeviceId);
-            connOpt.setPassword("1111 0".toCharArray());
+            connOpt.setPassword(("1111 "+version).toCharArray());
             topic = "ds/" + fullDeviceId + "/out/";
             // Connect to Broker
             client.setCallback(this);
             client.connect(connOpt);
             android.util.Log.i(TAG,"connecting...");
             final long start = System.currentTimeMillis();
-            while (client.isConnected() == false
+            while (!client.isConnected()
                     && System.currentTimeMillis() - start < 5000) {
                 Thread.sleep(100);
             }

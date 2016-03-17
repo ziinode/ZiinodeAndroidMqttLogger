@@ -21,15 +21,14 @@ import java.util.concurrent.TimeUnit;
 public class main extends Activity{
     public static final String PREFS_NAME = "ZnPrefs";
     public static final String TAG = "io.ziinode.sens";
-    public static final String TYPE = "ANDSENS";
+    public static final String TYPE = "<YOUR TYPE ID>";
     /**
      * Called when the activity is first created.
      */
     TextView status;
     Button conn;
     Button logBtn;
-    EditText dsid;
-    EditText pin;
+    TextView dsid;
     EditText interval;
     EditText logEt;
     main m;
@@ -47,10 +46,8 @@ public class main extends Activity{
         status = (TextView) findViewById(R.id.status);
 
 
-        dsid = (EditText)findViewById(R.id.dsid);
+        dsid = (TextView)findViewById(R.id.dsid);
         dsid.setText(settings.getString("dsId",TYPE));
-        pin = (EditText)findViewById(R.id.pin);
-        pin.setText(settings.getString("pin","1111"));
         interval =(EditText)findViewById(R.id.interval);
         logEt =(EditText)findViewById(R.id.logEt);
         String ii = settings.getString("int", null);
@@ -62,14 +59,6 @@ public class main extends Activity{
             @Override
             public void onClick(View v) {
                 if(log.conn.getState()==ZnConnector.STATE_DISCONNECED) {
-                    if (dsid.getText().toString().length() != 7) {
-                        Toast.makeText(m, "DsId field should be 7 numbers or letters, actual:" + dsid.getText().toString().length(), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (pin.getText().toString().length() != 4) {
-                        Toast.makeText(m, "PIN field should be 4 numbers or letters, actual:" + dsid.getText().toString().length(), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
                     try {
                         Integer.parseInt(interval.getText().toString());
                     } catch (Exception e) {
@@ -78,7 +67,6 @@ public class main extends Activity{
                     }
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putString("dsId", dsid.getText().toString());
-                    editor.putString("pin", pin.getText().toString());
                     editor.putString("int", interval.getText().toString());
                     editor.commit();
 
@@ -141,9 +129,6 @@ public class main extends Activity{
 
     public String getDsid() {
         return dsid.getText().toString();
-    }
-    public String getPin() {
-        return pin.getText().toString();
     }
     public int getInterval() {
         return Integer.parseInt(interval.getText().toString());
