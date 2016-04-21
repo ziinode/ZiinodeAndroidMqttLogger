@@ -18,7 +18,7 @@ public class ZnConnector implements MqttCallback, Runnable{
     private static final String TAG = "znconn";// "znconn";
 
     public static byte TRAP = 7; // Client sends metrics data sent to server
-    public static byte ANNOTATION = 8; // Client sends annotation data sent to
+    public static byte EVENT = 8; // Client sends EVENT data sent to
     public static byte LOG = 9; // Client sends log data sent to server
 
     public static final int STATE_DISCONNECED = 0;
@@ -110,6 +110,26 @@ public class ZnConnector implements MqttCallback, Runnable{
                 buf.putShort((short)bb.length);
                 buf.put(bb);
                 client().publish(getTopicBase()+ZnConnector.LOG, buf.array(), 0, true);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                android.util.Log.i(TAG,"writeLog",e);
+            }
+        }
+    }
+
+    public void event(long time, int category, String log){
+        if(client()!=null && client().isConnected()){
+            //android.util.Log.i(TAG,"writeLog:"+log);
+
+            try {
+                byte[] bb = log.getBytes();
+                ByteBuffer buf = ByteBuffer.allocate(bb.length+4+8);
+                buf.putLong(time);
+                buf.putShort((short)category);
+                buf.putShort((short)bb.length);
+                buf.put(bb);
+                client().publish(getTopicBase()+ZnConnector.EVENT, buf.array(), 0, true);
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

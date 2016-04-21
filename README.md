@@ -6,3 +6,4 @@ Make sure you click Auto register option which enables all clients of this type 
 Configure your data source type as shown in picture below, copy data source TypeId - on top of page and paste in `main` activity TYPE = "YOUR TYPE ID"
 ![DataSourceType](DeviceType.png)
 
+
