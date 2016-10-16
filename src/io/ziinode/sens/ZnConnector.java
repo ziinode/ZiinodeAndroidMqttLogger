@@ -202,7 +202,7 @@ public class ZnConnector implements MqttCallback, Runnable{
         return client;
     }
 
-    public static final String URL = "http://ziinode.io/api/v1/node/host/";
+    public static final String URL = "http://tinovi.io/api/v1/node/host/";
     long lastTime = 0;
     @Override
     public void run() {
