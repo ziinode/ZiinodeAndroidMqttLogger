@@ -1,3 +1,5 @@
+#!!! Repository moved to [github.com/tinovi](https://github.com/tinovi)
+
 MQTT Android java client metric and log sending sample for [www.ziinode.io](www.ziinode.io) IoT cloud service.
 
 This sample shows how to use ziinode cloud to add remote debugging option to you application.
